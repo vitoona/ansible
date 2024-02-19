@@ -19,7 +19,7 @@
       run_once: True
 
     - name: set filename var
-        set_fact:
+        #set_fact:
         ucs: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
 
     - name: Download a new UCS
