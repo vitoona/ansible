@@ -11,13 +11,13 @@
           server: "{{ ansible_host }}"
           # user: "{{ f5_admin_user }}"
           # password: "{{ f5_admin_password }}"
-          server_port: "{{ f5_admin_port }}"
+          server_port: "443"
           validate_certs: false
 
     - name: Download a new UCS
       f5networks.f5_modules.bigip_ucs_fetch:
         src: "{{file_name}}"
-        dest: "{{local_folder_location}}/{{file_name}}"
+        only_create_file: true
         provider: "{{ provider }}"
       delegate_to: localhost
 
