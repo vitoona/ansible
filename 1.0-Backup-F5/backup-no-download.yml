@@ -9,14 +9,22 @@
       ansible.builtin.set_fact:
         provider:
           server: "{{ ansible_host }}"
-          # user: "{{ f5_admin_user }}"
-          # password: "{{ f5_admin_password }}"
           server_port: "443"
           validate_certs: false
+          
+    - name: get current time on localhost
+      command: date "+%H%M%S-%m%d%y"
+      register: date
+      delegate_to: localhost
+      run_once: True
+
+    - name: set filename var
+        set_fact:
+        ucs: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
 
     - name: Download a new UCS
       f5networks.f5_modules.bigip_ucs_fetch:
-        src: "{{file_name}}"
+        src: "{{ucs}}"
         only_create_file: true
         provider: "{{ provider }}"
       delegate_to: localhost
