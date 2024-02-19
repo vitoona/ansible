@@ -19,12 +19,12 @@
       run_once: True
 
     - name: set filename var
-        #set_fact:
-        ucs: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
+        set_fact: 
+          ucs: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
 
     - name: Download a new UCS
       f5networks.f5_modules.bigip_ucs_fetch:
-        src: "{{ucs}}"
+        src: "{{ ucs }}"
         only_create_file: true
         provider: "{{ provider }}"
       delegate_to: localhost
